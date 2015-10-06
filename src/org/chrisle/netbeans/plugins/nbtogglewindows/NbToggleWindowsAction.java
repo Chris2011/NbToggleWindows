@@ -62,26 +62,6 @@ public final class NbToggleWindowsAction implements ActionListener {
                 }
             });
         }
-        
-//        Collection<TopComponent> comps = getDisplayedWindows();
-//        comps.forEach(new Consumer<TopComponent>() {
-//            @Override
-//            public void accept(TopComponent t) {
-//                if (t.isDisplayable()) {
-//                    _displayedComps.add(t);
-//
-//                    t.close();
-//
-////                    JOptionPane.showMessageDialog(null, t.getName(), "Opened Windows", JOptionPane.WARNING_MESSAGE);
-//                } else {
-//                    for (Iterator<TopComponent> iterator = _displayedComps.iterator(); iterator.hasNext();) {
-//                        TopComponent next = iterator.next();
-//
-//                        next.open();
-//                    }
-//                }
-//            }
-//        });
     }
 
     private Collection<TopComponent> getDisplayedWindows() {
