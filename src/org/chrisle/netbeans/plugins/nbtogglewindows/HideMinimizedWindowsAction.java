@@ -30,18 +30,22 @@ import org.openide.windows.WindowManager;
 @ActionReference(path = "Shortcuts", name = "OS-H OS-M")
 @NbBundle.Messages("CTL_HideClosedWindowsAction=Hide closed Windows")
 public class HideMinimizedWindowsAction implements ActionListener {
+    Collection<TopComponent> _minimizedComponents = new HashSet<>();
+    final WindowManager _wm;
 
-    Collection<TopComponent> _displayedComps = new HashSet<>();
-
+    public HideMinimizedWindowsAction() {
+        this._wm = WindowManager.getDefault();
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         getMinimizedWindows();
 
-        if(_displayedComps != null) {
-            _displayedComps.forEach(new Consumer<TopComponent>() {
+        if(_minimizedComponents != null) {
+            _minimizedComponents.forEach(new Consumer<TopComponent>() {
                 @Override
                 public void accept(TopComponent t) {
-                    if (t.isDisplayable()) {
+                    if (_wm.isTopComponentMinimized(t)) {
                         t.close();
                     } else {
                         t.open();
@@ -52,26 +56,16 @@ public class HideMinimizedWindowsAction implements ActionListener {
     }
 
     private void getMinimizedWindows() {
-        final WindowManager wm = WindowManager.getDefault();
-
-        for (Mode mode : wm.getModes()) {
-            if (!wm.isEditorMode(mode)) {
-//                Arrays.asList(wm.getMainWindow().getComponents()).forEach(new Consumer<Component>() {
-//                    @Override
-//                    public void accept(Component t) {
-//                        JOptionPane.showMessageDialog(null, t);
-////                        wm.isTopComponentMinimized((TopComponent)t);
-//                    }
-//                });
-                
-//                Arrays.asList(wm.getOpenedTopComponents(mode)).forEach(new Consumer<TopComponent>() {
-//                    @Override
-//                    public void accept(TopComponent t) {
-//                        if (!t.isDisplayable() && !_displayedComps.contains(t)) {
-//                            _displayedComps.add(t);
-//                        }
-//                    }
-//                });
+        for (Mode mode : _wm.getModes()) {
+            if (!_wm.isEditorMode(mode)) {
+                Arrays.asList(_wm.getOpenedTopComponents(mode)).forEach(new Consumer<TopComponent>() {
+                    @Override
+                    public void accept(TopComponent t) {
+                        if (_wm.isTopComponentMinimized(t) && !_minimizedComponents.contains(t)) {
+                            _minimizedComponents.add(t);
+                        }
+                    }
+                });
             }
         }
     }   
