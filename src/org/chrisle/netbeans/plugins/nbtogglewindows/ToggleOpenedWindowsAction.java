@@ -16,7 +16,7 @@ import org.openide.windows.WindowManager;
 
 @ActionID(
     category = "Window",
-    id = "org.chrisle.netbeans.plugins.nbhidewindows.NbToggleWindowsAction"
+    id = "org.chrisle.netbeans.plugins.nbhidewindows.ToggleOpenedWindowsAction"
 )
 @ActionRegistration(
     displayName = "#CTL_NbToggleWindowsAction"

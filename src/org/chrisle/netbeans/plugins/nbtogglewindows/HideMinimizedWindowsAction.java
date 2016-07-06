@@ -1,13 +1,11 @@
 package org.chrisle.netbeans.plugins.nbtogglewindows;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.function.Consumer;
-import javax.swing.JOptionPane;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.awt.ActionRegistration;
@@ -22,13 +20,13 @@ import org.openide.windows.WindowManager;
  */
 @ActionID(
     category = "Window",
-    id = "org.chrisle.netbeans.plugins.nbhidewindows.NbToggleWindowsAction"
+    id = "org.chrisle.netbeans.plugins.nbhidewindows.HideMinimizedWindowsAction"
 )
 @ActionRegistration(
     displayName = "#CTL_HideClosedWindowsAction"
 )
 @ActionReference(path = "Shortcuts", name = "OS-H OS-M")
-@NbBundle.Messages("CTL_HideClosedWindowsAction=Hide closed Windows")
+@NbBundle.Messages("CTL_HideClosedWindowsAction=Hide minimized Windows")
 public class HideMinimizedWindowsAction implements ActionListener {
     Collection<TopComponent> _minimizedComponents = new HashSet<>();
     final WindowManager _wm;
